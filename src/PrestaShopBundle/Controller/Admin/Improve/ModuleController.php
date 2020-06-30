@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2019 PrestaShop and Contributors
+ * 2007-2020 PrestaShop and Contributors
  *
  * NOTICE OF LICENSE
  *
@@ -19,7 +19,7 @@
  * needs please refer to https://www.prestashop.com for more information.
  *
  * @author    PrestaShop SA <contact@prestashop.com>
- * @copyright 2007-2019 PrestaShop SA and Contributors
+ * @copyright 2007-2020 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * International Registered Trademark & Property of PrestaShop SA
  */
@@ -363,25 +363,13 @@ class ModuleController extends ModuleAbstractController
             case ModuleAdapter::ACTION_DISABLE:
             case ModuleAdapter::ACTION_ENABLE_MOBILE:
             case ModuleAdapter::ACTION_DISABLE_MOBILE:
-                $deniedAccess = $this->checkPermissions(
-                    [
-                        PageVoter::LEVEL_UPDATE,
-                    ]
-                );
+                $deniedAccess = $this->checkPermission(PageVoter::UPDATE);
                 break;
             case ModuleAdapter::ACTION_INSTALL:
-                $deniedAccess = $this->checkPermissions(
-                    [
-                        PageVoter::LEVEL_CREATE,
-                    ]
-                );
+                $deniedAccess = $this->checkPermission(PageVoter::CREATE);
                 break;
             case ModuleAdapter::ACTION_UNINSTALL:
-                $deniedAccess = $this->checkPermissions(
-                    [
-                        PageVoter::LEVEL_DELETE,
-                    ]
-                );
+                $deniedAccess = $this->checkPermission(PageVoter::DELETE);
                 break;
         }
 
@@ -794,6 +782,23 @@ class ModuleController extends ModuleAbstractController
             $pageVoter
         )
         ) {
+            return new JsonResponse(
+                [
+                    'status' => false,
+                    'msg' => $this->trans('You do not have permission to add this.', 'Admin.Notifications.Error'),
+                ]
+            );
+        }
+    }
+
+    /**
+     * @param string $pageVoter
+     *
+     * @return JsonResponse
+     */
+    private function checkPermission($pageVoter)
+    {
+        if (!$this->isGranted($pageVoter, self::CONTROLLER_NAME)) {
             return new JsonResponse(
                 [
                     'status' => false,
