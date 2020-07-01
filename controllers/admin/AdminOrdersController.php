@@ -1160,6 +1160,37 @@ class AdminOrdersControllerCore extends AdminController
 
                     // Redirect if no errors
                     if (!count($this->errors)) {
+
+                        $my_product_list = array();
+
+                        foreach ($full_product_list as $id_order_detail) {
+                            $my_order_detail = new OrderDetail((int) $id_order_detail);
+                            $my_product_list[$id_order_detail] = array(
+                                'id_order_detail' => $id_order_detail,
+                                'quantity' => $full_quantity_list[$id_order_detail],
+                                'unit_price' => $my_order_detail->unit_price_tax_excl,
+                                'amount' => isset($amount) ? $amount : $my_order_detail->unit_price_tax_incl * $full_quantity_list[$id_order_detail],
+                            );
+                        }
+
+                        $refundedProducts = [];
+
+                        foreach ($full_product_list as $id_order_detail) {
+                            $my_order_detail = new OrderDetail((int) $id_order_detail);
+
+
+                            array_push($refundedProducts, (object)[
+                                IdOrderDetail => $id_order_detail,
+                                Quantity => $full_quantity_list[$id_order_detail],
+                                UnitPrice => $my_order_detail->unit_price_tax_excl,
+                                Amount => isset($amount) ? $amount : $my_order_detail->unit_price_tax_incl * $full_quantity_list[$id_order_detail],
+                                OrderId => $my_order_detail->id_order,
+                                ProductId => $my_order_detail->product_id
+                            ]);
+                        }
+
+                        Hook::exec('actionOrderPartialReturn', array('order' => $order, 'refundedProducts' => $refundedProducts));
+
                         Tools::redirectAdmin(self::$currentIndex . '&id_order=' . $order->id . '&vieworder&conf=31&token=' . $this->token);
                     }
                 }
