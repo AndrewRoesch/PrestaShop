@@ -1,0 +1,3 @@
+[submodule "modules/qconnect"]
+	path = modules/qconnect
+	url = https://bitbucket.org/ptpos/q-connect.git

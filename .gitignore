@@ -121,7 +121,8 @@ app/config/config.php
 
 # Themes, modules and overrides
 
-modules/*
+#commenting out modules in our git ignore to allow our custom module
+#modules/*
 override/*
 themes/*/
 !themes/classic
