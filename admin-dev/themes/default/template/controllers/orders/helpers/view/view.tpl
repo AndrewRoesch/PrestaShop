@@ -169,10 +169,10 @@
             &nbsp;
           {/if}
           {if $order->hasInvoice()}
-            <a id="desc-order-partial_refund" class="btn btn-default" href="#refundForm">
+            <!--<a id="desc-order-partial_refund" class="btn btn-default" href="#refundForm">
               <i class="icon-exchange"></i>
               {l s='Partial refund' d='Admin.Orderscustomers.Feature'}
-            </a>
+            </a>-->
           {/if}
           {hook h='displayBackOfficeOrderActions' id_order=$order->id|intval}
         </div>
