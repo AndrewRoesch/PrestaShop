@@ -1189,7 +1189,7 @@ class AdminOrdersControllerCore extends AdminController
                             ]);
                         }
 
-                        Hook::exec('actionOrderPartialReturn', array('order' => $order, 'refundedProducts' => $refundedProducts));
+						Hook::exec('actionOrderPartialReturn', array('order' => $order, 'refundedProducts' => $refundedProducts, 'restock' => Tools::isSubmit('reinjectQuantities')));
 
                         Tools::redirectAdmin(self::$currentIndex . '&id_order=' . $order->id . '&vieworder&conf=31&token=' . $this->token);
                     }
