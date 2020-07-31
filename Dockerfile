@@ -37,4 +37,4 @@ RUN mkdir -p /tmp/data-ps \
 	&& rm /tmp/prestashop.zip
 
 
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
