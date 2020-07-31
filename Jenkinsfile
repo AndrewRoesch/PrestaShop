@@ -12,34 +12,13 @@ pipeline {
 
 
     stages {
-        stage('Get Git Version') {
-            steps {
-               sh 'printenv'
-               withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'bitpass', usernameVariable: 'bituser')]) {
-                 sh(script: 'gitversion . /output buildserver /url https://github.com/AndrewRoesch/PrestaShop /u $bituser /p $bitpass /b $BRANCH_NAME')
-               }
-               script {
-                   
-                   def d = [test: 'Default', something: 'Default', other: 'Default']
-                   def props = readProperties defaults: d, file: 'gitversion.properties', text: 'other=Override'
-                   GitVersion_FullSemVer= props['GitVersion_FullSemVer']
-                   GitVersion_SemVer= props['GitVersion_SemVer']
-                  
-                   echo "GitVersion_FullSemVer=${GitVersion_FullSemVer}"
-                   echo "GitVersion_SemVer=${GitVersion_SemVer}"
-                   
-                   TAG_SEM_VERSION = "${GitVersion_SemVer}-${env.BUILD_NUMBER}"
-            
-               }
-            }
-        }
         stage('Push Container') {
             steps {
                
                echo "TAG_SEM_VERSION=${TAG_SEM_VERSION}"
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
-                        def image = docker.build("andrewroesch/prestashop:'${TAG_SEM_VERSION}'", '. ')
+                        def image = docker.build("andrewroesch/prestashop:'1.7.6.7'", '. ')
                         image.push()
                         image.push('latest')
                     }
