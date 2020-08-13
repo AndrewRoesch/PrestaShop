@@ -18,23 +18,29 @@ COPY . .
 
 RUN php tools/build/CreateRelease.php --version="1.7.6.7" --destination-dir=/prestashop
 
-FROM prestashop/base:5.6-apache
-LABEL maintainer="Andrew Roesch"
+FROM bitnami/prestashop:1.7.6-7
+LABEL maintainer "Andrew Roesch"
 
 WORKDIR /tmp
 COPY --from=builder /prestashop/prestashop_1.7.6.7.zip prestashop.zip
 
 ENV PS_VERSION 1.7.6.7
 
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install -y unzip 
 
 # Get PrestaShop
 #ADD https://www.prestashop.com/download/old/prestashop_1.7.6.7.zip /tmp/prestashop.zip
 
 # Extract
 RUN mkdir -p /tmp/data-ps \
-	&& unzip -q /tmp/prestashop.zip -d /tmp/data-ps/ \
-	&& bash /tmp/ps-extractor.sh /tmp/data-ps \
-	&& rm /tmp/prestashop.zip
+	&& unzip -q /tmp/prestashop.zip -d /tmp/data-ps/ 
+#	&& bash /tmp/ps-extractor.sh /tmp/data-ps \
+#	&& rm /tmp/prestashop.zip
 
+RUN unzip -q /tmp/data-ps/prestashop.zip -d /tmp/data-ps/prestashop
 
-#CMD ["/bin/bash"]
+COPY /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/admin/
+
+CMD ["/bin/bash"]
