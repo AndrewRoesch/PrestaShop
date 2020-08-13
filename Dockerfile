@@ -41,6 +41,6 @@ RUN mkdir -p /tmp/data-ps \
 
 RUN unzip -q /tmp/data-ps/prestashop.zip -d /tmp/data-ps/prestashop
 
-COPY /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/admin/
+RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/admin/
 
 CMD ["/bin/bash"]
