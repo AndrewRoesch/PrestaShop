@@ -25,6 +25,8 @@ WORKDIR /tmp
 COPY --from=builder /prestashop/prestashop_1.7.6.7.zip prestashop.zip
 
 ENV PS_VERSION 1.7.6.7
+ENV PS_INSTALL_AUTO 1
+ENV PS_COUNTRY us
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
