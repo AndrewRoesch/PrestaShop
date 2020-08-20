@@ -45,4 +45,5 @@ RUN unzip -q /tmp/data-ps/prestashop.zip -d /tmp/data-ps/prestashop
 
 RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/admin/
 
-CMD ["/bin/bash"]
+ENTRYPOINT [ "/app-entrypoint.sh" ]
+CMD [ "httpd", "-f", "/opt/bitnami/apache/conf/httpd.conf", "-DFOREGROUND" ]
