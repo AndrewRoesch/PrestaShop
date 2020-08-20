@@ -38,12 +38,14 @@ RUN apt-get install -y unzip
 # Extract
 RUN mkdir -p /tmp/data-ps \
 	&& unzip -q /tmp/prestashop.zip -d /tmp/data-ps/ 
-RUN bash /tmp/ps-extractor.sh /tmp/data-ps 
-RUN rm /tmp/prestashop.zip
 
+# Replacement for RUN bash /tmp/ps-extractor.sh /tmp/data-ps 
 RUN unzip -q /tmp/data-ps/prestashop.zip -d /tmp/data-ps/prestashop
+RUN rm /tmp/prestashop.zip
+RUN chown www-data:www-data -R /tmp/prestashop/
+RUN cp -n -R -p $folder/prestashop/* /var/www/html
 
-RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/admin/
+#RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/admin/
 
 ENTRYPOINT [ "/app-entrypoint.sh" ]
 CMD [ "httpd", "-f", "/opt/bitnami/apache/conf/httpd.conf", "-DFOREGROUND" ]
