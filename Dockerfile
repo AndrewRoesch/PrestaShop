@@ -37,9 +37,9 @@ RUN apt-get install -y unzip
 
 # Extract
 RUN mkdir -p /tmp/data-ps \
-	&& unzip -q /tmp/prestashop.zip -d /tmp/data-ps/ \
-	&& bash /tmp/ps-extractor.sh /tmp/data-ps \
-	&& rm /tmp/prestashop.zip
+	&& unzip -q /tmp/prestashop.zip -d /tmp/data-ps/ 
+#	&& bash /tmp/ps-extractor.sh /tmp/data-ps \
+#	&& rm /tmp/prestashop.zip
 
 RUN unzip -q /tmp/data-ps/prestashop.zip -d /tmp/data-ps/prestashop
 
