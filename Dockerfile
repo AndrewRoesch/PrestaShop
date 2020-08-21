@@ -40,10 +40,5 @@ RUN mkdir -p /tmp/data-ps \
 # Replacement for RUN bash /tmp/ps-extractor.sh /tmp/data-ps 
 RUN unzip -q /tmp/data-ps/prestashop.zip -d /tmp/data-ps/prestashop
 RUN rm /tmp/prestashop.zip
-#RUN chown www-data:www-data -R /tmp/data-ps/prestashop
-#RUN cp -n -R -p /tmp/data-ps/prestashop/* /var/www/html
 
-RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/admin/
-
-#ENTRYPOINT [ "/app-entrypoint.sh" ]
-#CMD [ "httpd", "-f", "/opt/bitnami/apache/conf/httpd.conf", "-DFOREGROUND" ]
+RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/administration/
