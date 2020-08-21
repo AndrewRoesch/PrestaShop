@@ -42,4 +42,4 @@ RUN unzip -q /tmp/data-ps/prestashop.zip -d /tmp/data-ps/prestashop
 RUN rm /tmp/prestashop.zip
 
 #Copying over our files. Want to make sure everything is good first
-#RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/administration/
+RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/administration/
