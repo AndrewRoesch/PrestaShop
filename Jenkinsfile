@@ -18,7 +18,7 @@ pipeline {
                echo "TAG_SEM_VERSION=${TAG_SEM_VERSION}"
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
-                        def image = docker.build("andrewroesch/prestashop:'1.7.6.7-1'", '. ')
+                        def image = docker.build("andrewroesch/prestashop:'1.7.6.7-2'", '. ')
                         image.push()
                         image.push('latest')
                     }
