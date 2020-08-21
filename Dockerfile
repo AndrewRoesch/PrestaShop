@@ -41,4 +41,5 @@ RUN mkdir -p /tmp/data-ps \
 RUN unzip -q /tmp/data-ps/prestashop.zip -d /tmp/data-ps/prestashop
 RUN rm /tmp/prestashop.zip
 
-RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/administration/
+#Copying over our files. Want to make sure everything is good first
+#RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/administration/
