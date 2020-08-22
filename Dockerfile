@@ -44,9 +44,9 @@ RUN rm /tmp/prestashop.zip
 #Copying over our files. Want to make sure everything is good first
 RUN cp -r /tmp/data-ps/prestashop/admin/ /opt/bitnami/prestashop/administration/
 
-WORKDIR /opt/bitnami/prestashop/administration
-RUN chmod 755 .
+WORKDIR /opt/bitnami/prestashop/
 
 RUN touch .htaccess
 RUN chmod 666 .htaccess
 
+RUN chmod 755 administration/*
