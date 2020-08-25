@@ -25,6 +25,7 @@ WORKDIR /tmp
 COPY --from=builder /prestashop/prestashop_1.7.6.7.zip prestashop.zip
 
 ENV PS_VERSION 1.7.6.7
+ENV PS_MODE_DEV 0
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
