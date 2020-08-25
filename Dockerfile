@@ -49,4 +49,4 @@ WORKDIR /opt/bitnami/prestashop/
 RUN touch .htaccess
 RUN chmod 666 .htaccess
 
-RUN chmod 755 /opt/bitnami/prestashop/administration/*
+RUN chmod 755 /opt/bitnami/prestashop/administration/
